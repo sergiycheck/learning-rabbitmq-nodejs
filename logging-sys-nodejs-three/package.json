@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "send": "ts-node src/send.ts",
-    "receive": "ts-node src/worker.ts"
+    "send": "ts-node src/emit_log.ts",
+    "receive": "ts-node src/receive_logs.ts"
   },
   "dependencies": {
     "amqplib": "^0.10.1",

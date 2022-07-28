@@ -15,21 +15,15 @@ function connectToRabbitMq() {
         throw error1;
       }
 
-      // const queue = 'task_queue';
-      // const msg = process.argv.slice(2).join(' ') || 'Hello World!';
+      const exchange = 'logs';
+      const exchangeType = 'fanout';
+      const queueName = '';
+      let msg = process.argv.slice(2).join(' ') || 'Hello World!';
 
-      // //  queue will survive a RabbitMQ node restart.
-      // channel.assertQueue(queue, {
-      //   durable: true,
-      // });
+      channel.assertExchange(exchange, exchangeType, { durable: false });
 
-      // channel.sendToQueue(queue, Buffer.from(msg), {
-      //   persistent: true,
-      // });
-
-      // console.log(" [x] Sent '%s'", msg);
-
-      channel.assertExchange('logs', 'fanout', { durable: false });
+      channel.publish(exchange, queueName, Buffer.from(msg));
+      console.log(" [x] Sent '%s'", msg);
     });
 
     setTimeout(function () {
